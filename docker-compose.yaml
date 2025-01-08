@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+
+  postgres-fastapi:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${FASTAPI_PG_DB}
+    volumes:
+      - fastapi-postgres-db-volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "fastapi"]
+      interval: 5s
+      retries: 5
+    restart: always
+
+  fastapi:
+    build:
+        context: .
+        dockerfile: ./fastapi_service/Dockerfile
+    environment:
+      - USER=${DAGSHUB_USER}
+      - PASSWORD=${DAGSHUB_PASSWORD}
+      - TOKEN=${DAGSHUB_TOKEN}
+      - URI=${DAGSHUB_URI}
+      - NAME_MODEL=${DAGSHUB_NAME_MODEL}
+      - VERSION_MODEL=${DAGSHUB_VERSION_MODEL}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    ports:
+      - 80:80
+    restart: always
+
+volumes:
+  fastapi-postgres-db-volume:
