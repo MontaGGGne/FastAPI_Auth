@@ -26,6 +26,9 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
+    
+
+UserAuth = UserCreate
 
 
 class LiteUser(UserBase):
@@ -39,3 +42,7 @@ class User(UserBase):
     
     class Config:
         orm_mode = True
+
+
+class Token(BaseModel):
+    access_token: str
