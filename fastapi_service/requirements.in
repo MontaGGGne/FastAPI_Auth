@@ -5,3 +5,4 @@ uvicorn[standart]
 python-multipart
 sqlalchemy
 psycopg2
+alembic
