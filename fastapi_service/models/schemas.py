@@ -9,7 +9,7 @@ class ItemBase(BaseModel):
 
 
 class ItemCreate(ItemBase):
-    pass
+    data: str
 
 
 class Item(ItemBase):
