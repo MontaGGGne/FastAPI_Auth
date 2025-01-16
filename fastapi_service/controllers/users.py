@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -16,6 +18,7 @@ def register(db: Session, user_data: UserCreate):
         )
     user = User(email=user_data.email)
     user.hashed_password = pwd_context.hash(user_data.password)
+    user.s3_folder_id = uuid4()
     db.add(user)
     db.commit()
     return {

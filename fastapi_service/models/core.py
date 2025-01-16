@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UUID
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -11,10 +11,11 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
+    s3_folder_id = Column(UUID, unique=True, index=True)
     is_active = Column(Boolean, default=True)
     
-    items = relationship("Item", back_populates="owner")
-    tokens = relationship("Token", back_populates="user")
+    items = relationship("Item", back_populates="owner", passive_deletes=True)
+    tokens = relationship("Token", back_populates="user", passive_deletes=True)
 
 
 class Token(Base):
@@ -22,7 +23,7 @@ class Token(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     access_token = Column(String, unique=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
+    user_id = Column(Integer, ForeignKey("users.id", ondelete='CASCADE'))
 
     user = relationship("User", back_populates="tokens")
 
@@ -33,6 +34,7 @@ class Item(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
     description = Column(String, index=True)
-    owner_id = Column(Integer, ForeignKey("users.id"))
+    s3_path = Column(String, unique=True, index=True)
+    owner_id = Column(Integer, ForeignKey("users.id", ondelete='CASCADE'))
     
     owner = relationship("User", back_populates="items")

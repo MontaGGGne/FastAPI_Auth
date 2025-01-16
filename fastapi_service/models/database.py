@@ -1,16 +1,7 @@
-import os
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import URL
-from dotenv import load_dotenv
 
-load_dotenv()
-USER=os.environ.get('DB_USER')
-PASS=os.environ.get('DB_PASSWORD')
-HOST=os.environ.get('DB_HOST')
-PORT=os.environ.get('FASTAPI_DB_PORT')
-DBNAME=os.environ.get('FASTAPI_PG_DB')
+from additional_methods.get_env import USER, PASS, HOST, PORT, DBNAME
 
 
 pg_connect_url = f"postgresql+psycopg2://{USER}:{PASS}@{HOST}:{PORT}/{DBNAME}"
