@@ -1,15 +1,18 @@
 from fastapi import APIRouter, UploadFile, File, Body, Depends
 from sqlalchemy.orm import Session
 
-from typing import Annotated, List
+from typing import Annotated, List, Optional
 
 from views.items import all_items, item_by_id
 
 from models import schemas
 from models.database import get_db
 
-from controllers.items import item_add_update
+from controllers.items import item_create_update
 from secure import apikey_scheme
+
+from additional_methods.get_env import *
+from s3.s3_conn import boto3_conn
 
 
 router = APIRouter()
@@ -25,9 +28,17 @@ def get_item(item_id: int, access_token: Annotated[str, Depends(apikey_scheme)],
     return item_by_id(item_id=item_id, access_token=access_token, db=db)
 
 @router.post("/create_item", response_model=schemas.LiteItem, status_code=201)
-def create_update_item(access_token: Annotated[str, Depends(apikey_scheme)],
-                       item_fields: schemas.ItemCreateUpdate,
+async def create_update_item(access_token: Annotated[str, Depends(apikey_scheme)],
+                       title: str,
+                       filename: str,
+                       description: Optional[str] = None,
+                       id: Optional[int] = None,
                        item_data: UploadFile = File(...),
                        db: Session = Depends(get_db)):
-    return item_add_update(access_token, db=db, item_fields=item_fields,
-                           item_data=item_data)
+    return await item_create_update(access_token, db=db,
+                                    title=title,
+                                    filename=filename,
+                                    description=description,
+                                    id=id,
+                                    item_data=item_data)
+    

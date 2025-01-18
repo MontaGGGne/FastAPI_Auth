@@ -46,31 +46,31 @@ services:
     volumes:
       - pgadmin-data:/var/lib/pgadmin
 
-  fastapi:
-    build:
-        context: .
-        dockerfile: ./fastapi_service/Dockerfile
-    environment:
-      - USER=${DAGSHUB_USER}
-      - PASSWORD=${DAGSHUB_PASSWORD}
-      - TOKEN=${DAGSHUB_TOKEN}
-      - URI=${DAGSHUB_URI}
-      - NAME_MODEL=${DAGSHUB_NAME_MODEL}
-      - VERSION_MODEL=${DAGSHUB_VERSION_MODEL}
-      - FASTAPI_DB_HOST=${FASTAPI_DB_HOST}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_HOST=${FASTAPI_DB_HOST}
-      - FASTAPI_DB_PORT=${FASTAPI_DB_PORT}
-      - FASTAPI_PG_DB=${FASTAPI_PG_DB}
-      - AWS_ACCESS_READ_KEY_ID=${AWS_ACCESS_READ_KEY_ID}
-      - AWS_SECRET_ACCESS_READ_KEY=${AWS_SECRET_ACCESS_READ_KEY}
-      - AWS_ACCESS_WRITE_KEY_ID=${AWS_ACCESS_WRITE_KEY_ID}
-      - AWS_SECRET_ACCESS_WRITE_KEY=${AWS_SECRET_ACCESS_WRITE_KEY}
-      - BUCKET_ID=${BUCKET_ID}
-    ports:
-      - 80:80
-    restart: always
+  # fastapi:
+  #   build:
+  #       context: .
+  #       dockerfile: ./fastapi_service/Dockerfile
+  #   environment:
+  #     - USER=${DAGSHUB_USER}
+  #     - PASSWORD=${DAGSHUB_PASSWORD}
+  #     - TOKEN=${DAGSHUB_TOKEN}
+  #     - URI=${DAGSHUB_URI}
+  #     - NAME_MODEL=${DAGSHUB_NAME_MODEL}
+  #     - VERSION_MODEL=${DAGSHUB_VERSION_MODEL}
+  #     - FASTAPI_DB_HOST=${FASTAPI_DB_HOST}
+  #     - DB_USER=${DB_USER}
+  #     - DB_PASSWORD=${DB_PASSWORD}
+  #     - DB_HOST=${FASTAPI_DB_HOST}
+  #     - FASTAPI_DB_PORT=${FASTAPI_DB_PORT}
+  #     - FASTAPI_PG_DB=${FASTAPI_PG_DB}
+  #     - AWS_ACCESS_READ_KEY_ID=${AWS_ACCESS_READ_KEY_ID}
+  #     - AWS_SECRET_ACCESS_READ_KEY=${AWS_SECRET_ACCESS_READ_KEY}
+  #     - AWS_ACCESS_WRITE_KEY_ID=${AWS_ACCESS_WRITE_KEY_ID}
+  #     - AWS_SECRET_ACCESS_WRITE_KEY=${AWS_SECRET_ACCESS_WRITE_KEY}
+  #     - BUCKET_ID=${BUCKET_ID}
+  #   ports:
+  #     - 80:80
+  #   restart: always
 
 volumes:
   fastapi-postgres-db-volume:
