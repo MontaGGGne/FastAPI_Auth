@@ -1,19 +1,13 @@
 from uuid import UUID
 from fastapi import UploadFile
 from pydantic import BaseModel, EmailStr
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from models.core import Item
 
 
 class ItemBase(BaseModel):
     title: str
     description: Optional[str] = None
-
-
-class ItemCreateUpdate(ItemBase):
-    filename: str
-    item_data: UploadFile
-    id: Optional[int] = None
 
 
 class Item(ItemBase):
@@ -30,6 +24,11 @@ class LiteItem(ItemBase):
     s3_path: str
 
 
+class ItemPredict(ItemBase):
+    id: int
+    predict: dict
+
+
 class UserBase(BaseModel):
     email: EmailStr
 
@@ -41,8 +40,11 @@ class UserCreate(UserBase):
 UserAuth = UserCreate
 
 
-class LiteUser(UserBase):
-    id: int
+class UserUpdate(BaseModel):
+    email: Optional[EmailStr] = None
+    password: Optional[str] = None
+    name: Optional[str] = None
+    surname: Optional[str] = None
 
 
 class User(UserBase):
@@ -53,6 +55,12 @@ class User(UserBase):
     
     class Config:
         orm_mode = True
+
+
+class LiteUser(UserBase):
+    id: int
+    name: Optional[str] = None
+    surname: Optional[str] = None
 
 
 class Token(BaseModel):

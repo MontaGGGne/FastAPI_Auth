@@ -51,12 +51,12 @@ services:
   #       context: .
   #       dockerfile: ./fastapi_service/Dockerfile
   #   environment:
-  #     - USER=${DAGSHUB_USER}
-  #     - PASSWORD=${DAGSHUB_PASSWORD}
-  #     - TOKEN=${DAGSHUB_TOKEN}
-  #     - URI=${DAGSHUB_URI}
-  #     - NAME_MODEL=${DAGSHUB_NAME_MODEL}
-  #     - VERSION_MODEL=${DAGSHUB_VERSION_MODEL}
+  #     - DAGSHUB_USER=${DAGSHUB_USER}
+  #     - DAGSHUB_PASSWORD=${DAGSHUB_PASSWORD}
+  #     - DAGSHUB_TOKEN=${DAGSHUB_TOKEN}
+  #     - DAGSHUB_URI=${DAGSHUB_URI}
+  #     - DAGSHUB_NAME_MODEL=${DAGSHUB_NAME_MODEL}
+  #     - DAGSHUB_VERSION_MODEL=${DAGSHUB_VERSION_MODEL}
   #     - FASTAPI_DB_HOST=${FASTAPI_DB_HOST}
   #     - DB_USER=${DB_USER}
   #     - DB_PASSWORD=${DB_PASSWORD}

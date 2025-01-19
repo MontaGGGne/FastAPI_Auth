@@ -11,6 +11,8 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
+    name = Column(String, index=True)
+    surname = Column(String, index=True)
     s3_folder_id = Column(UUID, unique=True, index=True)
     is_active = Column(Boolean, default=True)
     

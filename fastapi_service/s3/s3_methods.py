@@ -1,3 +1,4 @@
+
 def s3_post_signature(s3_session, bucket, key):
     return s3_session.generate_presigned_post( 
         Bucket=bucket, 
