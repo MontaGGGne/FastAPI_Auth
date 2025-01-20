@@ -5,9 +5,9 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_401_UNAUTHORIZED
 
-from models.core import User, Token
-from models.schemas import UserCreate, UserUpdate, LiteUser
-from secure import pwd_context
+from app.models.core import User, Token
+from app.models.schemas import UserCreate, UserUpdate, LiteUser
+from app.secure import pwd_context
 
 
 def register(db: Session, user_data: UserCreate):

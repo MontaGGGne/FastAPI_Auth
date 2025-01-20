@@ -6,11 +6,11 @@ from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_404_NOT_FOUND
 
 from typing import Optional, Dict, Any
 
-from models.core import Item, Token
-from models.schemas import LiteItem
+from app.models.core import Item, Token
+from app.models.schemas import LiteItem
 
-from additional_methods.upload_file import upload_json
-from additional_methods.get_env import *
+from app.additional_methods.upload_file import upload_json
+from app.additional_methods.get_env import *
 
 
 async def item_create(access_token: str,

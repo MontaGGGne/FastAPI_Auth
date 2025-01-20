@@ -10,3 +10,7 @@ alembic
 passlib
 bcrypt
 boto3
+requests
+numpy
+sqlmodel
+pytest

@@ -3,9 +3,8 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_401_UNAUTHORIZED
 
-from models import core
-from models.core import Token, User
-from models.schemas import LiteUser
+from app.models.core import Token, User
+from app.models.schemas import LiteUser
 
 
 def all_users(db: Session, skip: int = 0, limit: int = 100):

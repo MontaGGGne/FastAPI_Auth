@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from additional_methods.get_env import USER, PASS, HOST, PORT, DBNAME
+from app.additional_methods.get_env import USER, PASS, HOST, PORT, DBNAME
 
 
 pg_connect_url = f"postgresql+psycopg2://{USER}:{PASS}@{HOST}:{PORT}/{DBNAME}"

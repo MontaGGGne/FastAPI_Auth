@@ -9,14 +9,12 @@ from fastapi.responses import StreamingResponse
 import io
 import json
 
-from models.core import Item, Token
+from app.models.core import Item, Token
+from app.models.schemas import ItemPredict
 
-from s3.s3_methods import s3_get_signature
-from s3.s3_conn import boto3_conn
+from app.s3.s3_methods import s3_get_signature, boto3_conn
 
-from models.schemas import ItemPredict
-
-from additional_methods.get_env import *
+from app.additional_methods.get_env import *
 
 
 def all_items(access_token: str, db: Session, skip: int = 0, limit: int = 100):

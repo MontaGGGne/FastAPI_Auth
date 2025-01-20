@@ -5,9 +5,9 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_400_BAD_REQUEST
 
-from models.core import User, Token
-from models.schemas import UserAuth
-from secure import pwd_context
+from app.models.core import User, Token
+from app.models.schemas import UserAuth
+from app.secure import pwd_context
 
 
 def create_token(db: Session, user_data: UserAuth):

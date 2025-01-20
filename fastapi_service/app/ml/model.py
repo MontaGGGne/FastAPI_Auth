@@ -5,11 +5,11 @@ import os
 from fastapi import HTTPException
 from starlette.status import HTTP_500_INTERNAL_SERVER_ERROR
 import numpy as np
-from dataclasses import dataclass
 from typing import List, Dict, Any
 
 from train.train import Autoencoder_Model
 from prepData.prepData import PrepData
+
 from dotenv import load_dotenv
 
 load_dotenv()

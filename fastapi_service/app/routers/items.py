@@ -1,4 +1,4 @@
-from fastapi import APIRouter, UploadFile, File, Body, Depends
+from fastapi import APIRouter, UploadFile, File, Depends
 from fastapi.responses import Response
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
@@ -6,17 +6,17 @@ from starlette.status import HTTP_500_INTERNAL_SERVER_ERROR
 
 from typing import Annotated, List, Optional
 
-from views.items import all_items, item_by_id, item_by_id_download, predict
+from app.views.items import all_items, item_by_id, item_by_id_download, predict
 
-from models import schemas
-from models.database import get_db
+from app.models import schemas
+from app.models.database import get_db
 
-from controllers.items import item_create, item_update, delete_item_by_id
-from secure import apikey_scheme
+from app.controllers.items import item_create, item_update, delete_item_by_id
+from app.secure import apikey_scheme
 
-from additional_methods.get_env import *
+from app.additional_methods.get_env import *
 
-from ml.model import load_autoencoder_model
+from app.ml.model import load_autoencoder_model
 
 
 ml_model = None

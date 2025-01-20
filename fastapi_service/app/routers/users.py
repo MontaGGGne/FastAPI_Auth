@@ -3,11 +3,11 @@ from sqlalchemy.orm import Session
 
 from typing import Annotated, List
 
-from views.users import all_users, user_by_token
-from models import schemas
-from secure import apikey_scheme
-from models.database import get_db
-from controllers.users import register, update, delete_user_by_token
+from app.views.users import all_users, user_by_token
+from app.models import schemas
+from app.secure import apikey_scheme
+from app.models.database import get_db
+from app.controllers.users import register, update, delete_user_by_token
 
 
 router = APIRouter()

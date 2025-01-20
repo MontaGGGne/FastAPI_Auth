@@ -1,8 +1,8 @@
 from uuid import UUID
-from fastapi import UploadFile
 from pydantic import BaseModel, EmailStr
-from typing import List, Optional, Dict, Any
-from models.core import Item
+from typing import List, Optional
+
+from app.models.core import Item
 
 
 class ItemBase(BaseModel):

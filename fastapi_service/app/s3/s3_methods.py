@@ -4,7 +4,7 @@ from fastapi import HTTPException
 import logging
 from boto3.session import Session, Config
 
-from additional_methods.get_env import *
+from app.additional_methods.get_env import *
 
 
 logging.basicConfig(level=logging.INFO, filename="py_log_connection.log",filemode="w",
@@ -12,8 +12,6 @@ logging.basicConfig(level=logging.INFO, filename="py_log_connection.log",filemod
 
 def boto3_conn():
     try:
-        AWS_ACCESS_READ_KEY_ID='YCAJEWcnLVyldj9nscU3JM_7v'
-        AWS_SECRET_ACCESS_READ_KEY='YCNAidOUOCYI_D-7xHdUY8BQIJ1eiuDoba-KBm1E'
         session = Session()
         s3 = session.client(
             service_name='s3',
@@ -32,3 +30,21 @@ def boto3_conn():
             detail="S3 connection error"
         )
     return s3
+
+def s3_post_signature(s3_session, bucket, key):
+    return s3_session.generate_presigned_post( 
+        Bucket=bucket, 
+        Key=key, 
+        Conditions=None, 
+        ExpiresIn=3600
+    )
+
+def s3_get_signature(s3_session, bucket, key):
+    return s3_session.generate_presigned_url(
+        "get_object",
+        Params={
+                "Bucket": bucket,
+                "Key": key
+            },
+        ExpiresIn=3600
+    )
