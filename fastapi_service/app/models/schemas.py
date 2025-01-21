@@ -16,7 +16,7 @@ class Item(ItemBase):
     s3_path: str
     
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class LiteItem(ItemBase):
@@ -54,7 +54,7 @@ class User(UserBase):
     items: List[Item] = []
     
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class LiteUser(UserBase):
