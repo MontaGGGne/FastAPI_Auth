@@ -4,6 +4,7 @@ FROM python:3.10
 WORKDIR /workdir
 
 COPY ./fastapi_service /workdir
+COPY ./requirements.in /workdir/
 COPY for_pip_install/* /workdir/
 
 RUN apt-get update
