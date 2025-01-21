@@ -23,8 +23,11 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pip install ./for_pip_install/rmq_custom_pack-0.0.1-py3-none-any.whl
+          python -m pip install pip-tools
+          pip-compile
+          pip-sync
+          pip install ./for_pip_install/preprocess_data-0.1.10-py3-none-any.whl
+          pip install ./for_pip_install/train_and_valid_model-0.2.15-py3-none-any.whl
       - name: Setup variables
         run: |
           TMPFILE=$(tempfile --directory ~/ --prefix dh_pass_ --suffix .txt)
@@ -36,7 +39,7 @@ jobs:
         run: |
           docker image prune
           docker images
-          docker compose -f docker-compose-build.yml build
+          docker compose -f docker-compose-build.yaml build
           docker images
       - name: Push to docker hub
         run: |
