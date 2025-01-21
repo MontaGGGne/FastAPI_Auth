@@ -31,8 +31,7 @@ jobs:
           echo "${{ secrets.DOCKER_HUB_TOKEN }}" > $TMPFILE
       - name: Test
         run: |
-          pytest ./rabbit_producer/test_producer.py
-          pytest ./rabbit_consumer/test_consumer.py
+          pytest ./fastapi_service/app/tests
       - name: Build image
         run: |
           docker image prune
@@ -42,17 +41,5 @@ jobs:
       - name: Push to docker hub
         run: |
           echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login --username ${{ secrets.DOCKER_HUB_USER }} --password-stdin
-          docker tag vbr_bak_nasa_turbofans_project-fastapi ${{ secrets.DOCKER_HUB_USER }}/pste-service-fastapi:v1-release
-          docker tag vbr_bak_nasa_turbofans_project-rmq_producer_1 ${{ secrets.DOCKER_HUB_USER }}/pste-service-rmq-producer-1:v1-release
-          docker tag vbr_bak_nasa_turbofans_project-rmq_producer_2 ${{ secrets.DOCKER_HUB_USER }}/pste-service-rmq-producer-2:v1-release
-          docker tag vbr_bak_nasa_turbofans_project-rmq_producer_3 ${{ secrets.DOCKER_HUB_USER }}/pste-service-rmq-producer-3:v1-release
-          docker tag vbr_bak_nasa_turbofans_project-rmq_consumer_1 ${{ secrets.DOCKER_HUB_USER }}/pste-service-rmq-consumer-1:v1-release
-          docker tag vbr_bak_nasa_turbofans_project-rmq_consumer_2 ${{ secrets.DOCKER_HUB_USER }}/pste-service-rmq-consumer-2:v1-release
-          docker tag extending_airflow ${{ secrets.DOCKER_HUB_USER }}/pste-service-airflow:v1-release
+          docker tag fastapi_auth-fastapi ${{ secrets.DOCKER_HUB_USER }}/pste-service-fastapi:v1-release
           docker push ${{ secrets.DOCKER_HUB_USER }}/pste-service-fastapi:v1-release
-          docker push ${{ secrets.DOCKER_HUB_USER }}/pste-service-rmq-producer-1:v1-release
-          docker push ${{ secrets.DOCKER_HUB_USER }}/pste-service-rmq-producer-2:v1-release
-          docker push ${{ secrets.DOCKER_HUB_USER }}/pste-service-rmq-producer-3:v1-release
-          docker push ${{ secrets.DOCKER_HUB_USER }}/pste-service-rmq-consumer-1:v1-release
-          docker push ${{ secrets.DOCKER_HUB_USER }}/pste-service-rmq-consumer-2:v1-release
-          docker push ${{ secrets.DOCKER_HUB_USER }}/pste-service-airflow:v1-release
