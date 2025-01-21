@@ -1,0 +1,81 @@
+version: "3"
+
+services:
+
+  postgres-fastapi:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${FASTAPI_PG_DB}
+    volumes:
+      - fastapi-postgres-db-volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"
+      interval: 5s
+      retries: 5
+    restart: always
+
+  postgres-airflow:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${AIRFLOW_PG_DB}
+    volumes:
+      - airflow-postgres-db-volume:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    healthcheck:
+      test: "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"
+      interval: 5s
+      retries: 5
+    restart: always
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${DB_USER}@domain-name.com
+      PGADMIN_DEFAULT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+  fastapi:
+    build:
+        context: .
+        dockerfile: ./fastapi_service/Dockerfile
+    environment:
+      - DAGSHUB_USER=${DAGSHUB_USER}
+      - DAGSHUB_PASSWORD=${DAGSHUB_PASSWORD}
+      - DAGSHUB_TOKEN=${DAGSHUB_TOKEN}
+      - DAGSHUB_URI=${DAGSHUB_URI}
+      - DAGSHUB_NAME_MODEL=${DAGSHUB_NAME_MODEL}
+      - DAGSHUB_VERSION_MODEL=${DAGSHUB_VERSION_MODEL}
+      - FASTAPI_DB_HOST=${FASTAPI_DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${FASTAPI_DB_HOST}
+      - FASTAPI_DB_PORT=${FASTAPI_DB_PORT}
+      - FASTAPI_PG_DB=${FASTAPI_PG_DB}
+      - AWS_ACCESS_READ_KEY_ID=${AWS_ACCESS_READ_KEY_ID}
+      - AWS_SECRET_ACCESS_READ_KEY=${AWS_SECRET_ACCESS_READ_KEY}
+      - AWS_ACCESS_WRITE_KEY_ID=${AWS_ACCESS_WRITE_KEY_ID}
+      - AWS_SECRET_ACCESS_WRITE_KEY=${AWS_SECRET_ACCESS_WRITE_KEY}
+      - BUCKET_ID=${BUCKET_ID}
+    ports:
+      - 80:80
+    depends_on:
+      - postgres-fastapi
+      - pgadmin
+    restart: always
+
+volumes:
+  fastapi-postgres-db-volume:
+  airflow-postgres-db-volume:
+  pgadmin-data:
