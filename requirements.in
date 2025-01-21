@@ -16,4 +16,3 @@ requests
 numpy
 sqlmodel
 httpx
-elastic-apm
