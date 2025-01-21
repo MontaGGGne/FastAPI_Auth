@@ -20,7 +20,6 @@ async def upload_json(file: UploadFile, s3_full_path: str):
         put_response = requests.post(response['url'],
                                      data=response['fields'],
                                      files={'file': json_data})
-        print(put_response.reason)
         file.file.close()
         if put_response.reason != 'No Content':
             raise HTTPException(
