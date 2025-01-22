@@ -30,8 +30,10 @@ jobs:
           pip install ./for_pip_install/train_and_valid_model-0.2.15-py3-none-any.whl
       - name: Setup variables
         run: |
-          TMPFILE=$(tempfile --directory ~/ --prefix dh_pass_ --suffix .txt)
-          echo "${{ secrets.DOCKER_HUB_TOKEN }}" > $TMPFILE
+          touch .env
+          echo AWS_ACCESS_READ_KEY_ID=${{ secrets.AWS_ACCESS_READ_KEY_ID }} >> .env
+          echo AWS_SECRET_ACCESS_READ_KEY=${{ secrets.AWS_SECRET_ACCESS_READ_KEY }} >> .env
+          cat .env
       - name: Test
         run: |
           pytest ./fastapi_service/app/tests
