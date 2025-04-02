@@ -19,25 +19,24 @@ async def item_create(access_token: str,
                        title: str,
                        description: Optional[str] = None):
     token = db.scalar(select(Token).where(Token.access_token == access_token))
-    if token:
-        uuid_filename = uuid4()
-        s3_full_path = f"{CORE_FOLDER}/users/{str(token.user.s3_folder_id)}/{str(uuid_filename)}.json"
-        await upload_json(item_data, s3_full_path)
-        item = Item(title=title,
-                    description=description,
-                    s3_path=s3_full_path)
-        item.owner_id = token.user.id
-        db.add(item)
-        db.commit()
-        return LiteItem(id=item.id,
-                        title=item.title,
-                        description=item.description,
-                        s3_path=item.s3_path)
-    else:
+    if not token:
         raise HTTPException(
             status_code = HTTP_401_UNAUTHORIZED,
             detail = "UNAUTHORIZED"
         )
+    uuid_filename = uuid4()
+    s3_full_path = f"{CORE_FOLDER}/users/{str(token.user.s3_folder_id)}/{str(uuid_filename)}.json"
+    await upload_json(item_data, s3_full_path)
+    item = Item(title=title,
+                description=description,
+                s3_path=s3_full_path)
+    item.owner_id = token.user.id
+    db.add(item)
+    db.commit()
+    return LiteItem(id=item.id,
+                    title=item.title,
+                    description=item.description,
+                    s3_path=item.s3_path)
 
 async def item_update(access_token: str,
                        db: Session,
