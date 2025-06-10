@@ -3,6 +3,7 @@ version: "3"
 services:
 
   postgres-fastapi:
+    container_name: postgres-fastapi-auth
     image: postgres:13
     environment:
       POSTGRES_USER: ${DB_USER}
@@ -18,8 +19,9 @@ services:
       retries: 5
     restart: always
 
-  fastapi:
-    image: ${DOCKER_HUB_USER}/pste-service-fastapi:v1-release
+  fastapi-auth:
+    container_name: fastapi-auth
+    image: ${DOCKER_HUB_USER}/pste-service-fastapi-auth:v1-release
     environment:
       - DAGSHUB_USER=${DAGSHUB_USER}
       - DAGSHUB_PASSWORD=${DAGSHUB_PASSWORD}
@@ -42,8 +44,10 @@ services:
       - 80:80
     depends_on:
       - postgres-fastapi
-      - pgadmin
+      # - pgadmin
     restart: always
+    # command:  bash -c "alembic -c ./app/alembic.ini upgrade head && uvicorn "run:app" --host 0.0.0.0 --port 8000 --reload"
+    command: ls
 
 volumes:
   fastapi-postgres-db-volume:

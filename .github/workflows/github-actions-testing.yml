@@ -44,5 +44,5 @@ jobs:
       - name: Push to docker hub
         run: |
           echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login --username ${{ secrets.DOCKER_HUB_USER }} --password-stdin
-          docker tag fastapi_auth-fastapi ${{ secrets.DOCKER_HUB_USER }}/pste-service-fastapi:v1-release
-          docker push ${{ secrets.DOCKER_HUB_USER }}/pste-service-fastapi:v1-release
+          docker tag fastapi_auth-fastapi ${{ secrets.DOCKER_HUB_USER }}/pste-service-fastapi-auth:v1-release
+          docker push ${{ secrets.DOCKER_HUB_USER }}/pste-service-fastapi-auth:v1-release
