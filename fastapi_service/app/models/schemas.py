@@ -5,10 +5,34 @@ from typing import List, Optional
 from app.models.core import Item
 
 
+# Базовые классы
+
 class ItemBase(BaseModel):
     title: str
     description: Optional[str] = None
 
+
+class UserBase(BaseModel):
+    email: EmailStr
+
+
+# Классы форм
+
+class UserCreate(UserBase):
+    password: str
+
+
+class UserUpdate(BaseModel):
+    email: Optional[EmailStr] = None
+    password: Optional[str] = None
+    name: Optional[str] = None
+    surname: Optional[str] = None
+
+
+UserAuth = UserCreate
+
+
+# Классы представлений
 
 class Item(ItemBase):
     id: int
@@ -27,24 +51,6 @@ class LiteItem(ItemBase):
 class ItemPredict(ItemBase):
     id: int
     predict: dict
-
-
-class UserBase(BaseModel):
-    email: EmailStr
-
-
-class UserCreate(UserBase):
-    password: str
-    
-
-UserAuth = UserCreate
-
-
-class UserUpdate(BaseModel):
-    email: Optional[EmailStr] = None
-    password: Optional[str] = None
-    name: Optional[str] = None
-    surname: Optional[str] = None
 
 
 class User(UserBase):

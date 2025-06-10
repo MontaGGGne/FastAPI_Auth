@@ -30,10 +30,8 @@ jobs:
           pip install ./for_pip_install/train_and_valid_model-0.2.15-py3-none-any.whl
       - name: Setup variables
         run: |
-          touch .env
-          echo AWS_ACCESS_READ_KEY_ID=${{ secrets.AWS_ACCESS_READ_KEY_ID }} >> .env
-          echo AWS_SECRET_ACCESS_READ_KEY=${{ secrets.AWS_SECRET_ACCESS_READ_KEY }} >> .env
-          cat .env
+          TMPFILE=$(tempfile --directory ~/ --prefix dh_pass_ --suffix .txt)
+          echo "${{ secrets.DOCKER_HUB_TOKEN }}" > $TMPFILE
       - name: Test
         run: |
           pytest ./fastapi_service/app/tests
@@ -46,5 +44,5 @@ jobs:
       - name: Push to docker hub
         run: |
           echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login --username ${{ secrets.DOCKER_HUB_USER }} --password-stdin
-          docker tag fastapi_auth-fastapi ${{ secrets.DOCKER_HUB_USER }}/pste-service-fastapi:v1-release
-          docker push ${{ secrets.DOCKER_HUB_USER }}/pste-service-fastapi:v1-release
+          docker tag fastapi_auth-fastapi ${{ secrets.DOCKER_HUB_USER }}/pste-service-fastapi-auth:v1-release
+          docker push ${{ secrets.DOCKER_HUB_USER }}/pste-service-fastapi-auth:v1-release

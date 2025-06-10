@@ -54,7 +54,7 @@ def download_item_file(item_id: int, access_token: Annotated[str, Depends(apikey
              db: Session = Depends(get_db)):
     return item_by_id_download(item_id=item_id, access_token=access_token, db=db)
 
-@router.get("/{item_id}/predict")
+@router.get("/{item_id}/predict", response_model=schemas.ItemPredict)
 async def get_predict(item_id: int, access_token: Annotated[str, Depends(apikey_scheme)],
              db: Session = Depends(get_db)):
     return predict(item_id=item_id, access_token=access_token, db=db, ml_model=ml_model)

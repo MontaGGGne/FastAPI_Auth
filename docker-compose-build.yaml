@@ -2,7 +2,8 @@ version: "3"
 
 services:
 
-  fastapi:
+  fastapi-auth:
+    container_name: fastapi-auth
     build:
         context: .
         dockerfile: ./fastapi_service/Dockerfile
