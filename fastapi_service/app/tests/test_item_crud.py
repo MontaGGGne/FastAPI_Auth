@@ -77,6 +77,8 @@ def test_create_item(client: TestClient):
     except Exception as e:
         print(f"response_item_create error: {repr(e)}")
     app.dependency_overrides.clear()
+    
+    print(response_item_create)
 
     data_item_create = response_item_create.json()
     assert response_item_create.status_code == 201
