@@ -10,6 +10,7 @@ print(f"dotenv_load_info 1: {dotenv_load_info}")
 logging.info(f"dotenv_load_info 1: {dotenv_load_info}")
 CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(CUR_DIR)))
+CORE_DIR_LIST = os.listdir(CORE_DIR)
 if dotenv_load_info is False:
     print(f"Full path: {os.path.join(CORE_DIR, '.env')}")
     logging.info(f"Full path: {os.path.join(CORE_DIR, '.env')}")
