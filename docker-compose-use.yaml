@@ -46,8 +46,8 @@ services:
       - postgres-fastapi
       # - pgadmin
     restart: always
-    # command:  bash -c "alembic -c ./app/alembic.ini upgrade head && uvicorn "run:app" --host 0.0.0.0 --port 8000 --reload"
-    command: ls
+    command:  bash -c "alembic -c ./app/alembic.ini upgrade head && uvicorn "run:app" --host 0.0.0.0 --port 8000 --reload"
+    # command: ls
 
 volumes:
   fastapi-postgres-db-volume:
