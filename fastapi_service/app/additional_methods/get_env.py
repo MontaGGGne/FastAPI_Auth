@@ -14,5 +14,7 @@ DBNAME=os.environ.get('FASTAPI_PG_DB')
 # S3 connection
 AWS_ACCESS_READ_KEY_ID = os.environ.get('AWS_ACCESS_READ_KEY_ID')
 AWS_SECRET_ACCESS_READ_KEY = os.environ.get('AWS_SECRET_ACCESS_READ_KEY')
-BUCKET_ID = 'mg-work'
-CORE_FOLDER = 'fastapi-service'
+BUCKET_ID = os.environ.get('BUCKET_ID')
+CORE_FOLDER = os.environ.get('CORE_FOLDER')
+# BUCKET_ID = 'mg-work'
+# CORE_FOLDER = 'fastapi-service'
