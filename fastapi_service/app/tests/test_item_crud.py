@@ -78,9 +78,12 @@ def test_create_item(client: TestClient):
         print(f"response_item_create error: {repr(e)}")
     app.dependency_overrides.clear()
     
-    print(response_item_create)
+    print(f"response_item_create: {response_item_create}")
 
     data_item_create = response_item_create.json()
+    
+    print(f"data_item_create: {data_item_create}")
+    
     assert response_item_create.status_code == 201
     assert data_item_create["title"] == item_create_json["title"]
     assert data_item_create["description"] == item_create_json["description"]
