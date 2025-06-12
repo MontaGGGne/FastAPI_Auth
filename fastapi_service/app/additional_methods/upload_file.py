@@ -3,6 +3,7 @@ from fastapi import HTTPException
 from starlette.status import HTTP_500_INTERNAL_SERVER_ERROR
 
 import requests
+import traceback
 
 from app.additional_methods.get_env import *
 from app.s3.s3_methods import boto3_conn, s3_post_signature
@@ -29,7 +30,7 @@ async def upload_json(file: UploadFile, s3_full_path: str):
     except Exception as e:
         raise HTTPException(
             status_code=HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Upload file go wrong: {repr(e)}"
+            detail=f"Upload file go wrong: {traceback.extract_stack()}"
         )
     finally:
         file.file.close()
