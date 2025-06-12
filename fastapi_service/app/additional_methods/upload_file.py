@@ -14,6 +14,7 @@ async def upload_json(file: UploadFile, s3_full_path: str):
         file_content = await file.read()
         json_data = file_content.decode('utf8').replace("'", '"')
 
+        print(f"BUCKET_ID: {BUCKET_ID}")
         response = s3_post_signature(s3_session=boto3_conn(),
                                      bucket=BUCKET_ID,
                                      key=s3_full_path)
