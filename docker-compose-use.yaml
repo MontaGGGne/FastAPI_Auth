@@ -41,13 +41,11 @@ services:
       - AWS_SECRET_ACCESS_WRITE_KEY=${AWS_SECRET_ACCESS_WRITE_KEY}
       - BUCKET_ID=${BUCKET_ID}
     ports:
-      - 80:80
+      - 8000:8000
     depends_on:
       - postgres-fastapi
-      # - pgadmin
     restart: always
-    command:  bash -c "alembic -c ./app/alembic.ini upgrade head && uvicorn "run:app" --host 0.0.0.0 --port 8000 --reload"
-    # command: ls
+    command:  bash -c "alembic -c ./app/alembic.ini upgrade head && uvicorn "run:app" --host 0.0.0.0 --port 8000 --reload --timeout-keep-alive 600"
 
 volumes:
   fastapi-postgres-db-volume:
