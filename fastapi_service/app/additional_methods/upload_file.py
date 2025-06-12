@@ -33,7 +33,7 @@ async def upload_json(file: UploadFile, s3_full_path: str):
             status_code=HTTP_500_INTERNAL_SERVER_ERROR,
             detail=(f"REPR: {repr(e)}\n",
                     f"DOTENV_INFO_1: {DOTENV_INFO_1}\nDOTENV_INFO_2: {DOTENV_INFO_2}\n",
-                    f"CUR_DIR: {CUR_DIR}\nCORE_DIR: {CORE_DIR}\n",
+                    f"CUR_DIR: {CUR_DIR}\nCORE_DIR: {CORE_DIR}\nCORE_DIR_LIST: {CORE_DIR_LIST}\n",
                     f"FULL_PATH: {FULL_PATH}\nUpload file go wrong: {traceback.format_exc()}")
         )
     finally:
