@@ -2,7 +2,11 @@ import os
 from dotenv import load_dotenv
 
 
-load_dotenv()
+dotenv_load_info = load_dotenv()
+if dotenv_load_info is False:
+    cur_dir = os.path.dirname(os.path.abspath(__file__))
+    core_dir = os.path.dirname(os.path.dirname(os.path.dirname(cur_dir)))
+    load_dotenv(os.path.join(core_dir, '.env'))
 
 # DB connection
 USER=os.environ.get('DB_USER')
