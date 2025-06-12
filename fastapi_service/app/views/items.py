@@ -89,6 +89,7 @@ def predict(access_token: str, item_id: str, db: Session, ml_model):
         print(f"data_obj: {data_obj}")
         response_model: dict = {}
         if ml_model is None:
+            print(f"ml_model error: ml_model is None")
             raise HTTPException(
                 status_code = HTTP_500_INTERNAL_SERVER_ERROR,
                 detail = f"None model"
@@ -96,6 +97,7 @@ def predict(access_token: str, item_id: str, db: Session, ml_model):
         try:
             response_model = ml_model(data_obj)
         except Exception as e:
+            print(f"response_model error: {repr(e)}")
             raise HTTPException(
                 status_code = HTTP_500_INTERNAL_SERVER_ERROR,
                 detail = f"Get predict from model error: {traceback.format_exc()}"
