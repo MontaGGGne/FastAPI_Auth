@@ -30,7 +30,7 @@ async def upload_json(file: UploadFile, s3_full_path: str):
     except Exception as e:
         raise HTTPException(
             status_code=HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Upload file go wrong: {traceback.extract_stack()}"
+            detail=f"REPR: {repr(e)}\nUpload file go wrong: {traceback.format_exc()}"
         )
     finally:
         file.file.close()
