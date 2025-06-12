@@ -7,6 +7,7 @@ services:
     build:
         context: .
         dockerfile: ./fastapi_service/Dockerfile
+    image: fastapi-auth
     environment:
       - DAGSHUB_USER=${DAGSHUB_USER}
       - DAGSHUB_PASSWORD=${DAGSHUB_PASSWORD}
