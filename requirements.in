@@ -5,7 +5,6 @@ psycopg2
 httpx
 pydantic==2.7.4
 pydantic[email]
-pydantic_settings
 python-dotenv==0.19.0
 uvicorn[standart]
 python-multipart
