@@ -22,4 +22,4 @@ RUN export MLFLOW_TRACKING_PASSWORD=$DAGSHUB_PASSWORD
 
 # RUN ls
 # RUN alembic -c ./fastapi_service/app/alembic.ini revision --autogenerate
-# CMD ["uvicorn", "run:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "run:app", "--host", "0.0.0.0", "--port", "80"]
