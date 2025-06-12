@@ -10,7 +10,7 @@ uvicorn[standart]
 python-multipart
 alembic
 passlib
-bcrypt
+bcrypt==4.0.1
 boto3
 requests
 numpy
