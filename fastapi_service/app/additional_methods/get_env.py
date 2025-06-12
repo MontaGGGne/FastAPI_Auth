@@ -1,12 +1,19 @@
 import os
 from dotenv import load_dotenv
+import logging
 
 
 dotenv_load_info = load_dotenv()
+print(f"dotenv_load_info 1: {dotenv_load_info}")
+logging.info(f"dotenv_load_info 1: {dotenv_load_info}")
 if dotenv_load_info is False:
     cur_dir = os.path.dirname(os.path.abspath(__file__))
     core_dir = os.path.dirname(os.path.dirname(os.path.dirname(cur_dir)))
-    load_dotenv(os.path.join(core_dir, '.env'))
+    print(f"Full path: {os.path.join(core_dir, '.env')}")
+    logging.info(f"Full path: {os.path.join(core_dir, '.env')}")
+    dotenv_load_info = load_dotenv(os.path.join(core_dir, '.env'))
+    print(f"dotenv_load_info 2: {dotenv_load_info}")
+    logging.info(f"dotenv_load_info 2: {dotenv_load_info}")
 
 # DB connection
 USER=os.environ.get('DB_USER')
