@@ -17,7 +17,8 @@ async def item_create(access_token: str,
                        db: Session,
                        item_data: UploadFile,
                        title: str,
-                       description: Optional[str] = None):
+                       description: Optional[str] = None,
+                       test: bool = False):
     token = db.scalar(select(Token).where(Token.access_token == access_token))
     if not token:
         raise HTTPException(
@@ -26,7 +27,10 @@ async def item_create(access_token: str,
         )
     uuid_filename = uuid4()
     s3_full_path = f"{CORE_FOLDER}/users/{str(token.user.s3_folder_id)}/{str(uuid_filename)}.json"
-    await upload_json(item_data, s3_full_path)
+
+    if test is False:
+        await upload_json(item_data, s3_full_path)
+
     item = Item(title=title,
                 description=description,
                 s3_path=s3_full_path)

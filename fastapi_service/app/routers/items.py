@@ -65,11 +65,13 @@ async def create_item(access_token: Annotated[str, Depends(apikey_scheme)],
                       title: str,
                       description: Optional[str] = None,
                       item_data: UploadFile = File(...),
+                      test: bool = False,
                       db: Session = Depends(get_db)):
     return await item_create(access_token, db=db,
-                                    title=title,
-                                    description=description,
-                                    item_data=item_data)
+                             title=title,
+                             description=description,
+                             item_data=item_data,
+                             test=test)
 
 @router.put("/{item_id}", response_model=schemas.LiteItem, status_code=201)
 async def update_item(access_token: Annotated[str, Depends(apikey_scheme)],
