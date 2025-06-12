@@ -4,16 +4,24 @@ import logging
 
 
 dotenv_load_info = load_dotenv()
+DOTENV_INFO_1 = dotenv_load_info
+DOTENV_INFO_2 = None
 print(f"dotenv_load_info 1: {dotenv_load_info}")
 logging.info(f"dotenv_load_info 1: {dotenv_load_info}")
+cur_dir = os.path.dirname(os.path.abspath(__file__))
+core_dir = os.path.dirname(os.path.dirname(os.path.dirname(cur_dir)))
 if dotenv_load_info is False:
     cur_dir = os.path.dirname(os.path.abspath(__file__))
     core_dir = os.path.dirname(os.path.dirname(os.path.dirname(cur_dir)))
     print(f"Full path: {os.path.join(core_dir, '.env')}")
     logging.info(f"Full path: {os.path.join(core_dir, '.env')}")
     dotenv_load_info = load_dotenv(os.path.join(core_dir, '.env'))
+    DOTENV_INFO_2 = dotenv_load_info
     print(f"dotenv_load_info 2: {dotenv_load_info}")
     logging.info(f"dotenv_load_info 2: {dotenv_load_info}")
+
+FULL_PATH = os.path.join(core_dir, '.env')
+
 
 # DB connection
 USER=os.environ.get('DB_USER')
