@@ -50,7 +50,8 @@ def test_create_item(client: TestClient):
 
     item_create_json = {
         "title": "test_title",
-        "description": "test_description"
+        "description": "test_description",
+        "test": True
     }
     test_data = [
         {
