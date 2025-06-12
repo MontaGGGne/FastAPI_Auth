@@ -38,12 +38,15 @@ def test_create_item(client: TestClient):
     response_create_user = client.post(
             "/users", json={"email": "test@test.com", "password": "test"}
         )
-
+    print(f"response_create_user: {response_create_user}")
     response_token = client.post(
             "/tokens", json={"email": "test@test.com", "password": "test"}
         )
+    print(f"response_token: {response_token}")
+
     data_token = response_token.json()
     token = data_token["access_token"]
+    print(f"token: {token}")
 
     item_create_json = {
         "title": "test_title",
@@ -64,12 +67,15 @@ def test_create_item(client: TestClient):
     header = {
         "Authorization": token
     }
-    response_item_create = client.post(
-            "/items",
-            params=item_create_json,
-            files=file,
-            headers=header
-        )
+    try:
+        response_item_create = client.post(
+                "/items",
+                params=item_create_json,
+                files=file,
+                headers=header
+            )
+    except Exception as e:
+        print(f"response_item_create error: {repr(e)}")
     app.dependency_overrides.clear()
 
     data_item_create = response_item_create.json()

@@ -27,7 +27,8 @@ async def startup_event():
     try:
         global ml_model
         ml_model = load_autoencoder_model()
-    except:
+    except Exception as e:
+        print(f"load_autoencoder_model error: {repr(e)}")
         raise HTTPException(
             status_code = HTTP_500_INTERNAL_SERVER_ERROR,
             detail = "Error load autoencoder model"
