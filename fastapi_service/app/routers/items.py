@@ -29,7 +29,7 @@ async def startup_event():
         ml_model = load_autoencoder_model()
     except:
         raise HTTPException(
-            status_code=HTTP_500_INTERNAL_SERVER_ERROR,
+            status_code = HTTP_500_INTERNAL_SERVER_ERROR,
             detail = "Error load autoencoder model"
         )
 

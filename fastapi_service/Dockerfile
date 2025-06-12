@@ -20,6 +20,6 @@ RUN pip install ./preprocess_data-0.1.10-py3-none-any.whl
 RUN export MLFLOW_TRACKING_USERNAME=$DAGSHUB_USER
 RUN export MLFLOW_TRACKING_PASSWORD=$DAGSHUB_PASSWORD
 
-RUN ls
+# RUN ls
 # RUN alembic -c ./fastapi_service/app/alembic.ini revision --autogenerate
 # CMD ["uvicorn", "run:app", "--host", "0.0.0.0", "--port", "80"]
